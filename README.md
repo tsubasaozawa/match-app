@@ -88,14 +88,14 @@ rails g model relationship
   def create_params  
     params.permit(:following_id)  
   end  
-  ------------------------------------------  
+　------------------------------------------  
 
 ④ いいね用の部分テンプレート（_folllow.html.haml）を作成  
 ＜users/_folllow.html.haml＞------------------------------------------  
 = form_with model: relationship, remote: true do |f|  
   = hidden_field_tag :following_id, @user.id  
   = f.submit "いいね"  
-  ------------------------------------------  
+　------------------------------------------  
 
 ⑤ いいね機能を載せるshowページを作成  
 ＜users/show.html.haml＞------------------------------------------  
@@ -113,7 +113,7 @@ rails g model relationship
       - else  
         = render 'follow', {relationship: @relationship}  
     %br= @user.profile  
-  ------------------------------------------  
+　------------------------------------------  
 
 ⑥ いいねの非同期化  
 ・jqueryのGemをインストール  
@@ -123,24 +123,24 @@ gem 'jquery-rails'
 ・create.js.erbの作成  
 ＜relationship/create.js.erb＞------------------------------------------  
 $("#follow_form").html(`<div class="btn btn-default">いいね済</div>`)  
-  ------------------------------------------  
+　------------------------------------------  
 
 ## 4.一覧表示の作成  
 ① マッチング済ユーザーを取得するためのアソシエーション追加  
 ＜user.rb＞------------------------------------------  
 has_many :followers, through: :passive_relationships, source: :follower  
-  ------------------------------------------  
+　------------------------------------------  
 
 ＜relationship.rb＞------------------------------------------  
 belongs_to :follower, class_name: "User"  
-  ------------------------------------------  
+　------------------------------------------  
 
 ② userモデルへのメソッドの追加  
 ＜user.rb＞------------------------------------------  
 def matchers  
   following & followers  
 end  
-  ------------------------------------------  
+　------------------------------------------  
 
 ③ usersコントローラへのアクションの追加  
 ＜users_controller.rb＞------------------------------------------  
@@ -148,6 +148,6 @@ end
     @users = User.all  
     @matched_users = current_user.matchers  
   end  
-  ------------------------------------------  
+　------------------------------------------  
 
 ④ 一覧表示のビュー（users/index.html.haml）作成  
