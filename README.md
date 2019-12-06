@@ -91,8 +91,8 @@ rails g model relationship
   end  
 　------------------------------------------  
 
-④ いいね用の部分テンプレート（_folllow.html.haml）を作成  
-＜users/_folllow.html.haml＞------------------------------------------  
+④ いいね用の部分テンプレート（_follow.html.haml）を作成  
+＜users/_follow.html.haml＞------------------------------------------  
 = form_with model: relationship, remote: true do |f|  
   = hidden_field_tag :following_id, @user.id  
   = f.submit "いいね"  
