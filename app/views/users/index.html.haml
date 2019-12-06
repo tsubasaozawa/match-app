@@ -1,0 +1,60 @@
+= link_to user_path(current_user) do
+  プロフィール
+%br
+= link_to destroy_user_session_path, method: :delete do
+  ログアウト
+.container
+  .col-md-9
+    ユーザー名：
+    = current_user.nickname
+    .panel.panel-default
+      .panel-heading
+        .text-center
+          %span{style: "font-size:18px;"} ユーザー一覧
+      - @users.each do |user|
+        .col-sm-4.col-md-3
+          .panel.panel-default
+            .panel-heading
+              %h1.panel-title= link_to "#{user.nickname}",  user_path(user)
+            .panel-body
+            .thumbnail
+              - if user.avatar.blank?
+                noimage
+              - else
+                = image_tag(user.avatar)
+            .panel-footer
+    %br
+    .panel.panel-default
+      .panel-heading
+        .text-center
+          %span{style: "font-size:18px;"} マッチングユーザー一覧
+      - @matched_users.each do |matched_user|
+        .col-sm-4.col-md-3
+          .panel.panel-default
+            .panel-heading
+              %h1.panel-title= link_to "#{matched_user.nickname}",  user_path(matched_user)
+            .panel-body
+            .thumbnail
+              - if matched_user.avatar.blank?
+                noimage
+              - else
+                = image_tag(matched_user.avatar)
+            .panel-footer
+    %br
+    .panel.panel-default
+      .panel-heading
+        .text-center
+          %span{style: "font-size:18px;"} いいね済ユーザー一覧
+      - @users.each do |user|
+        - if current_user.following?(user)
+          .col-sm-4.col-md-3
+            .panel.panel-default
+              .panel-heading
+                %h1.panel-title= link_to "#{user.nickname}",  user_path(user)
+              .panel-body
+              .thumbnail
+                - if user.avatar.blank?
+                  noimage
+                - else
+                  = image_tag(user.avatar)
+              .panel-footer
